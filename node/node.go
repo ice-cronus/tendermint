@@ -1134,6 +1134,7 @@ func (n *Node) startRPC() ([]net.Listener, error) {
 			}),
 			rpcserver.ReadLimit(config.MaxBodyBytes),
 			rpcserver.WriteChanCapacity(n.config.RPC.WebSocketWriteBufferSize),
+			rpcserver.WriteWait(n.config.RPC.WebSocketWriteTimeout),
 		)
 		wm.SetLogger(wmLogger)
 		mux.HandleFunc("/websocket", wm.WebsocketHandler)
