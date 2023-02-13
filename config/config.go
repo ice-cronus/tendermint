@@ -406,9 +406,9 @@ type RPCConfig struct {
 	// Otherwise, HTTP server is run.
 	TLSKeyFile string `mapstructure:"tls_key_file"`
 
-	// The path to a file containing matching private key that is used to create the HTTPS server.
+	// The path to a file containing CA certificate who issues client's certificates for mutual TLS (mTLS).
 	// Might be either absolute path or path related to tendermint's config directory.
-	// Note: in case of empty value - mutual TLS is disabled
+	// Note: in case of empty value - mutual TLS is disabled.
 	TLSClientCACertFile string `mapstructure:"tls_client_cacert_file"`
 
 	// pprof listen address (https://golang.org/pkg/net/http/pprof)
