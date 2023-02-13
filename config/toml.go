@@ -260,6 +260,11 @@ tls_cert_file = "{{ .RPC.TLSCertFile }}"
 # Otherwise, HTTP server is run.
 tls_key_file = "{{ .RPC.TLSKeyFile }}"
 
+# The path to a file containing matching private key that is used to create the HTTPS server.
+# Might be either absolute path or path related to tendermint's config directory.
+# Note: in case of empty value - mutual TLS is disabled
+tls_client_cacert_file = "{{ .RPC.TLSClientCACertFile }}"
+
 # pprof listen address (https://golang.org/pkg/net/http/pprof)
 pprof_laddr = "{{ .RPC.PprofListenAddress }}"
 
