@@ -8,6 +8,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 	"net"
 	"net/http"
 	"os"
@@ -55,7 +57,7 @@ func DefaultConfig() *Config {
 func Serve(listener net.Listener, handler http.Handler, logger log.Logger, config *Config) error {
 	logger.Info("serve", "msg", log.NewLazySprintf("Starting RPC HTTP server on %s", listener.Addr()))
 	s := &http.Server{
-		Handler:           RecoverAndLogHandler(maxBytesHandler{h: handler, n: config.MaxBodyBytes}, logger),
+		Handler:           h2c.NewHandler(RecoverAndLogHandler(maxBytesHandler{h: handler, n: config.MaxBodyBytes}, logger), &http2.Server{}),
 		ReadTimeout:       config.ReadTimeout,
 		ReadHeaderTimeout: config.ReadTimeout,
 		WriteTimeout:      config.WriteTimeout,
